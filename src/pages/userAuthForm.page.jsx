@@ -88,7 +88,6 @@ const UserAuthForm = ({ type }) => {
     const handleGoogleAuth = (e) => {
         e.preventDefault();
         authWithGoogle().then((user) => {
-            console.log(user, "google user")
             let serverRoute = "/google-auth";
 
             let formData = {
@@ -151,15 +150,15 @@ const UserAuthForm = ({ type }) => {
                         {type === "sign-in" ? (
                             <p className="mt-6 text-dark-gray text-xl text-center">
                                 Don't have an account?{" "}
-                                <Link to="/signUp" className="underline underline-offset-2 text-black text-xl ml-1">
-                                    Sign up here
+                                <Link to="/signUp" className="underline underline-offset-4 text-black text-xl ml-1">
+                                    Join us today
                                 </Link>
                             </p>
                         ) : (
                             <p className="mt-6 text-dark-gray text-xl text-center">
                                 Already a member?{" "}
-                                <Link to="/signIn" className="underline underline-offset-2 text-black text-xl ml-1">
-                                    Sign in here
+                                <Link to="/signIn" className="underline underline-offset-4 text-black text-xl ml-1">
+                                    Sign in
                                 </Link>
                             </p>
                         )}
