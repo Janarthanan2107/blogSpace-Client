@@ -2,7 +2,7 @@
 export default {
     content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
-        
+
         colors: {
             'white': '#FFFFFF',
             'black': '#242424',
@@ -26,8 +26,8 @@ export default {
 
         extend: {
             fontFamily: {
-              inter: ["'Inter'", "sans-serif"],
-              gelasio: ["'Gelasio'", "serif"]
+                inter: ["'Inter'", "sans-serif"],
+                gelasio: ["'Gelasio'", "serif"],
             },
         },
 

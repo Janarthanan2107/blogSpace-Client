@@ -92,13 +92,12 @@ const UserAuthForm = ({ type }) => {
 
             let formData = {
                 access_token: user.accessToken,
-                profile_img: user.photoURL
             }
 
             userAuthThroughServer(serverRoute, formData)
         }).catch((err) => {
-            console.log("Trouble with login through google!")
             console.log(err)
+            console.log("Trouble with login through google!")
         });
     }
 
