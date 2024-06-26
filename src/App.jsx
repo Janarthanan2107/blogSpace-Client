@@ -50,7 +50,7 @@ const App = () => {
         userInSession ? setUserAuth(JSON.parse(userInSession)) : setUserAuth({ access_token: null })
     }, [])
 
-    console.log(userAuth, "Auth")
+    // console.log(userAuth, "Auth")
 
 
     return (

@@ -6,10 +6,12 @@ import defaultBanner from "../imgs/blog banner.png";
 import { Toaster, toast } from "react-hot-toast";
 import { EditorContext } from "../pages/editor.pages";
 import { Editor } from 'primereact/editor';
-import { Chips } from 'primereact/chips';
 import axios from "axios";
 import { UserContext } from "../App";
 import { domain } from "../constants/domain";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { firebase } from "../common/firebase";
+
 
 const BlogEditor = () => {
     const { userAuth: { access_token } } = useContext(UserContext)
@@ -23,24 +25,52 @@ const BlogEditor = () => {
     const [uploading, setUploading] = useState(false);
 
     // handle functions
-    const handleBannerOnChange = (e) => {
-        let image = e.target.files[0];
-        if (image) {
-            setUploading(true);
-            let loadingToast = toast.loading("Uploading...");
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setTimeout(() => {
-                    setBannerUrl(reader.result);
-                    setBlog({ ...blog, banner: reader.result });
-                    toast.dismiss(loadingToast);
-                    toast.success("Uploaded👍");
-                    setUploading(false);
-                }, 2000);
-            };
-            reader.readAsDataURL(image);
+    const handleBannerOnChange = async (e) => {
+        let selectedImage = e.target.files[0];
+
+        if (selectedImage) {
+            try {
+                setUploading(true);
+                let loadingToast = toast.loading("Uploading...");
+                const storage = getStorage(firebase)
+                const storageRef = ref(storage, "images/" + selectedImage.name);
+                await uploadBytes(storageRef, selectedImage);
+                const downloadUrl = await getDownloadURL(storageRef)
+                console.log(downloadUrl)
+                setBannerUrl(downloadUrl)
+                setBlog({ ...blog, banner: downloadUrl });
+                toast.dismiss(loadingToast);
+                toast.success("Uploaded👍");
+            } catch (error) {
+                toast.error(error.message)
+            } finally {
+                setUploading(false);
+            }
+        } else {
+            toast.error("No image selected")
         }
     };
+
+
+    // // handle functions
+    // const handleBannerOnChange = (e) => {
+    //     let image = e.target.files[0];
+    //     if (image) {
+    //         setUploading(true);
+    //         let loadingToast = toast.loading("Uploading...");
+    //         const reader = new FileReader();
+    //         reader.onloadend = () => {
+    //             setTimeout(() => {
+    //                 setBannerUrl(reader.result);
+    //                 setBlog({ ...blog, banner: reader.result });
+    //                 toast.dismiss(loadingToast);
+    //                 toast.success("Uploaded👍");
+    //                 setUploading(false);
+    //             }, 2000);
+    //         };
+    //         reader.readAsDataURL(image);
+    //     }
+    // };
 
     const handleTitleKeyDown = (e) => {
         if (e.keyCode === 13) { // enter key
@@ -78,6 +108,9 @@ const BlogEditor = () => {
         }
 
         const payload = JSON.stringify({ ...blog, banner: bannerUrl, content: contentText }, null, 2);
+
+        console.log(payload)
+
         if (payload) {
             setEditorState("publish");
         }

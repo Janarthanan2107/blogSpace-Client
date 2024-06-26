@@ -93,12 +93,14 @@ const PublishForm = () => {
             draft: false
         }
 
-        console.log(domain + "/blog/create", blogObject, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${access_token}`
-            }
-        })
+        console.log(JSON.stringify(blogObject, null, 2))
+
+        // console.log(domain + "/blog/create", blogObject, {
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Authorization': `Bearer ${access_token}`
+        //     }
+        // })
 
         axios.post(domain + "/blog/create", blogObject, {
             headers: {
