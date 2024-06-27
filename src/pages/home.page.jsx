@@ -7,6 +7,8 @@ import Loader from '../components/loader.component'
 import BlogPostCard from '../components/blog-post.component'
 import MinimalBlogPost from '../components/nobanner-blog-post.component'
 import NoDataMessage from '../components/nodata.component'
+import { filterPaginationData } from '../common/filter-pagination-data'
+import LoadMoreDataBtn from '../components/load-more.component'
 
 const Home = () => {
 
@@ -26,13 +28,21 @@ const Home = () => {
     ];
 
     // all blogs
-    const fetchLatestBlogs = async () => {
+    const fetchLatestBlogs = ({ page = 1 }) => {
         try {
-            const res = await axios.get(domain + "/blog/latestBlogs");
-            const data = res.data.blogs;
-            // console.log(data)
-            setBlogs(data)
-            console.log("blogs loaded")
+            axios
+                .post(domain + "/blog/latestBlogs", { page: page })
+                .then(async ({ data }) => {
+
+                    let formattedData = await filterPaginationData({
+                        state: blogs,
+                        data: data.blogs,
+                        page,
+                        countRoute: "/blog/allBlogsCount",
+                    });
+
+                    setBlogs(formattedData);
+                });
         } catch (error) {
             console.error("Error fetching latest blogs:", error.message);
         }
@@ -43,22 +53,27 @@ const Home = () => {
         try {
             const res = await axios.get(domain + "/blog/trendingBlogs");
             const data = res.data.blogs;
-            // console.log(data)
             setTrendingBlogs(data)
-            console.log("trending blogs loaded")
         } catch (error) {
             console.error("Error fetching latest blogs:", error.message);
         }
     };
 
     // search by category
-    const fetchBlogsByCategory = async () => {
+    const fetchBlogsByCategory = ({ page = 1 }) => {
         try {
-            const res = await axios.post(domain + "/blog/searchBlogs", { tag: pageState });
-            const data = res.data.blogs;
-            // console.log(data)
-            setBlogs(data)
-            console.log("search blogs loaded")
+            axios
+                .post(domain + "/blog/searchBlogs", { tag: pageState, page })
+                .then(async ({ data }) => {
+                    let formattedData = await filterPaginationData({
+                        state: blogs,
+                        data: data.blogs,
+                        page,
+                        countRoute: "/blog/searchBlogsCount",
+                        data_toSend: { tag: pageState }
+                    });
+                    setBlogs(formattedData);
+                });
         } catch (error) {
             console.error("Error fetching latest blogs:", error.message);
         }
@@ -77,25 +92,22 @@ const Home = () => {
     }
 
     useEffect(() => {
-        console.log("Loading....")
+        // console.log("Loading....")
 
         if (activeTabRefs.current && activeTabRefs.current[0]) {
             activeTabRefs.current[0].click();
         }
 
         if (pageState == "home") {
-            fetchLatestBlogs();
+            fetchLatestBlogs({ page: 1 });
         } else {
-            fetchBlogsByCategory()
+            fetchBlogsByCategory({ page: 1 })
         }
 
         if (!trendingBlogs) {
             fetchTrendingBlogs();
         }
     }, [pageState]);
-
-    // console.log(blogs, "blogs")
-    // console.log(trendingBlogs, "trending blogs")
 
     return (
         <AnimationWrapper>
@@ -109,17 +121,17 @@ const Home = () => {
                                 blogs == null ? (
                                     <Loader />
                                 ) : (
-                                    blogs.length ?
-                                        (blogs.map((blog, i) => {
+                                    blogs.results.length ?
+                                        (blogs.results.map((blog, i) => {
                                             return (
                                                 <AnimationWrapper key={i} transition={{ duration: 1, delay: i * 1 }}>
                                                     <BlogPostCard content={blog} author={blog.author.personal_info} />
                                                 </AnimationWrapper>
                                             )
-                                        })) : <NoDataMessage message={"No data are published."} />
-                                )
-                            }
-
+                                        }))
+                                        : <NoDataMessage message={"No data are published."} />
+                                )}
+                            <LoadMoreDataBtn state={blogs} fetchDataFunc={pageState == "home" ? fetchLatestBlogs : fetchBlogsByCategory} />
                         </>
 
                         <>
