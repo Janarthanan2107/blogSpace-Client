@@ -9,24 +9,16 @@ export const filterPaginationData = async ({ create_new_arr = false, state, data
             ...state,
             results: [...state.results, ...data],
             page: page
-        }
+        };
     } else {
         try {
-            await axios
-                .post(domain + countRoute, data_toSend)
-                .then(({ data: { totalDocs } }) => {
-                    obj = { results: data, page: 1, totalDocs };
-                })
-                .catch((err) => {
-                    console.log(err)
-                });
+            const response = await axios.post(domain + countRoute, data_toSend);
+            const { totalDocs } = response.data;
+            obj = { results: data, page: 1, totalDocs };
         } catch (err) {
-            console.log(err.message);
+            console.error("Error fetching total document count:", err.message);
         }
     }
-    // console.log(obj, "obj")
-    // console.log(state, "state")
-    // console.log(data, "data")
 
     return obj;
-}
+};

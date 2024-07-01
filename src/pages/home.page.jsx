@@ -17,15 +17,21 @@ const Home = () => {
     const [pageState, setPageState] = useState("home")
 
     let categories = [
-        "programming",
-        "hollywood",
-        "film making",
+        "technology",
+        "health",
+        "travel",
+        "cooking",
+        "fashion",
+        "personal",
+        "finance",
+        "science",
+        "education",
+        "lifestyle",
         "anime",
-        "hokage",
-        "naruto",
-        "social media",
-        "teach"
+        "history",
+        "sports",
     ];
+
 
     // all blogs
     const fetchLatestBlogs = ({ page = 1 }) => {
@@ -124,13 +130,14 @@ const Home = () => {
                                     blogs.results.length ?
                                         (blogs.results.map((blog, i) => {
                                             return (
-                                                <AnimationWrapper key={i} transition={{ duration: 1, delay: i * 1 }}>
+                                                <AnimationWrapper key={i} transition={{ duration: 1, delay: i }}>
                                                     <BlogPostCard content={blog} author={blog.author.personal_info} />
                                                 </AnimationWrapper>
                                             )
                                         }))
                                         : <NoDataMessage message={"No data are published."} />
-                                )}
+                                )
+                            }
                             <LoadMoreDataBtn state={blogs} fetchDataFunc={pageState == "home" ? fetchLatestBlogs : fetchBlogsByCategory} />
                         </>
 

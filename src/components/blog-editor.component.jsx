@@ -15,13 +15,12 @@ import { firebase } from "../common/firebase";
 
 const BlogEditor = () => {
     const { userAuth: { access_token } } = useContext(UserContext)
-    const { blog, setBlog, setEditorState } = useContext(EditorContext);
-    let { title } = blog;
+    const { blog, blog: { title, banner, content }, setBlog, setEditorState } = useContext(EditorContext);
     let navigate = useNavigate()
 
     // states
-    const [bannerUrl, setBannerUrl] = useState(blog.banner || defaultBanner);
-    const [contentText, setContentText] = useState(blog.content || "");
+    const [bannerUrl, setBannerUrl] = useState(banner || defaultBanner);
+    const [contentText, setContentText] = useState(content || "");
     const [uploading, setUploading] = useState(false);
 
     // handle functions

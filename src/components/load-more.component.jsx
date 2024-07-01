@@ -1,5 +1,4 @@
 const LoadMoreDataBtn = ({ state, fetchDataFunc }) => {
-
     if (state !== null && state.totalDocs > state.results.length) {
         return (
             <button
