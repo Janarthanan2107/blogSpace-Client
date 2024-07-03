@@ -21,6 +21,7 @@ const Home = () => {
         "health",
         "travel",
         "cooking",
+        "food",
         "fashion",
         "personal",
         "finance",
@@ -51,7 +52,7 @@ const Home = () => {
                 });
         } catch (error) {
             console.error("Error fetching latest blogs:", error.message);
-        }
+        } 
     };
 
     // trending blogs

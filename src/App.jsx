@@ -8,6 +8,7 @@ import { lookInSession } from "./common/session";
 import Editor from "./pages/editor.pages";
 import SearchPage from "./pages/search.page";
 import ProfilePage from "./pages/profile.page";
+import BlogPage from "./pages/blog.page";
 
 export const UserContext = createContext({})
 
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
             {
                 path: "user/:id",
                 element: <ProfilePage />
+            },
+            {
+                path: "blog/:blog_id",
+                element: <BlogPage />
             }
         ]
     },
