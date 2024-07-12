@@ -143,3 +143,82 @@
     border-color: #ccc;
     background: white;
 }
+
+.blog-page-content p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.blog-page-content h3 {
+    font-size: 24px !important;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #222;
+}
+
+.blog-page-content h4 {
+    font-size: 22px !important;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #222;
+}
+
+.blog-page-content strong {
+    font-size: 18.5px !important;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #222;
+}
+
+.blog-page-content a {
+    color: #1a73e8;
+    text-decoration: underline;
+}
+
+.blog-page-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.blog-page-content ul,
+.blog-page-content ol {
+    padding-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.blog-page-content ul li,
+.blog-page-content ol li {
+    margin-bottom: 5px;
+}
+
+.blog-page-content .ql-code-block-container {
+    background-color: #222;
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.blog-page-content .ql-code-block-container .ql-code-block{
+    font-size: 18px !important;
+    font-family: 'Courier New', Courier, monospace !important;
+}
+
+/* Make the first two div elements flex containers */
+.ql-code-block-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ql-code-block-container > div:nth-child(1),
+.ql-code-block-container > div:nth-child(2) {
+    display: none;
+}
+
+/* Ensure the rest of the divs maintain their original styling */
+.ql-code-block-container > div:nth-child(n+3) {
+    width: 100%;
+}
+

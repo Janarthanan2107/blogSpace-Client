@@ -15,13 +15,14 @@ import { firebase } from "../common/firebase";
 
 const BlogEditor = () => {
     const { userAuth: { access_token } } = useContext(UserContext)
-    const { blog, blog: { title, banner, content }, setBlog, setEditorState } = useContext(EditorContext);
+    const { blog, blog: { title, banner, content }, setBlog, setEditorState, blog_id } = useContext(EditorContext);
     let navigate = useNavigate()
 
     // states
     const [bannerUrl, setBannerUrl] = useState(banner || defaultBanner);
     const [contentText, setContentText] = useState(content || "");
     const [uploading, setUploading] = useState(false);
+    // console.log(editorId, "editorId");
 
     // handle functions
     const handleBannerOnChange = async (e) => {
@@ -49,27 +50,6 @@ const BlogEditor = () => {
             toast.error("No image selected")
         }
     };
-
-
-    // // handle functions
-    // const handleBannerOnChange = (e) => {
-    //     let image = e.target.files[0];
-    //     if (image) {
-    //         setUploading(true);
-    //         let loadingToast = toast.loading("Uploading...");
-    //         const reader = new FileReader();
-    //         reader.onloadend = () => {
-    //             setTimeout(() => {
-    //                 setBannerUrl(reader.result);
-    //                 setBlog({ ...blog, banner: reader.result });
-    //                 toast.dismiss(loadingToast);
-    //                 toast.success("Uploaded👍");
-    //                 setUploading(false);
-    //             }, 2000);
-    //         };
-    //         reader.readAsDataURL(image);
-    //     }
-    // };
 
     const handleTitleKeyDown = (e) => {
         if (e.keyCode === 13) { // enter key
@@ -134,10 +114,11 @@ const BlogEditor = () => {
             title,
             banner: bannerUrl,
             content: contentText,
-            draft: true
+            draft: true,
+            id: blog_id
         };
 
-        axios.post(domain + "/blog/create", blogObject, {
+        axios.post(`${domain}/blog/create`, blogObject, {
             headers: {
                 'Authorization': `Bearer ${access_token}`
             }
@@ -153,9 +134,8 @@ const BlogEditor = () => {
         }).catch(({ response }) => {
             e.target.classList.remove('disable');
             toast.dismiss(loadingToast);
-            return toast.error(response.data.error);
+            return toast.error(response?.data?.error || "An error occurred while saving the draft.");
         });
-
     };
 
 

@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const PublishForm = () => {
     const { userAuth: { access_token } } = useContext(UserContext)
-    let { blog, blog: { title, tags, banner, des, content }, setBlog, setEditorState } = useContext(EditorContext)
+    let { blog, blog: { title, tags, banner, des, content }, setBlog, setEditorState, blog_id } = useContext(EditorContext)
     let charLimit = 200;
     let tagLimit = 10;
     let navigate = useNavigate()
@@ -90,7 +90,8 @@ const PublishForm = () => {
             content,
             des,
             tags,
-            draft: false
+            draft: false,
+            id: blog_id
         }
 
         console.log(JSON.stringify(blogObject, null, 2))

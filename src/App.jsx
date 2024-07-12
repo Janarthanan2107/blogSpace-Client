@@ -47,8 +47,14 @@ const router = createBrowserRouter([
     },
     // editor route
     {
-        path: "editor",
-        element: <Editor />
+        path: "editor/",
+        element: <Editor />,
+        children: [
+            {
+                path: ":id",
+                element: <Editor />,
+            },
+        ]
     }
 ]);
 
