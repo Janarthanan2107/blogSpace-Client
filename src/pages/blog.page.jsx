@@ -1,14 +1,14 @@
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { domain } from "../constants/domain";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import AnimationWrapper from "../common/page-animation";
 import Loader from "../components/loader.component";
 import { getDay } from "../common/date";
 import BlogInteraction from "../components/blog-interaction.component";
 import { createContext } from "react";
 import BlogPostCard from "../components/blog-post.component";
-import CommentsContainer from "../components/comments.component"
+import CommentsContainer, { fetchComments } from "../components/comments.component";
 
 export const blogStruct = {
     title: "",
@@ -36,6 +36,10 @@ const BlogPage = () => {
 
     // comments dialog state
     const [commentsWrapper, setCommentsWrapper] = useState(false);
+    const [totalParentCommentsLoaded, setTotalParentCommentsLoaded] = useState(0);
+
+    // ref to prevent multiple fetches
+    const fetchBlogInProgress = useRef(false);
 
     // destructure
     let {
@@ -48,33 +52,36 @@ const BlogPage = () => {
         publishedAt,
     } = blog;
 
-    const fetchBlog = () => {
-        axios
-            .post(domain + "/blog/getBlogs", { blog_id })
-            .then(async ({ data: { blog } }) => {
-                setBlog(blog);
+    const fetchBlog = async () => {
+        // prevent multiple fetches validation before the axios call
+        if (fetchBlogInProgress.current) return;
+        fetchBlogInProgress.current = true;
 
-                // Fetch similar blogs
-                axios
-                    .post(domain + "/blog/searchBlogs", {
-                        tag: blog.tags[0],
-                        limit: 6,
-                        eliminate_blog: blog_id,
-                    })
-                    .then(({ data: { blogs } }) => {
-                        setSimilarBlogs(blogs);
-                    });
+        try {
+            const { data: { blog } } = await axios.post(domain + "/blog/getBlogs", { blog_id });
 
-                setTimeout(() => {
-                    setLoading(false);
-                }, 500);
-            })
-            .catch((err) => {
-                console.log(err.message);
-                setLoading(false);
+            blog.comments = await fetchComments({ blog_id: blog._id, setParentCommentCountFun: setTotalParentCommentsLoaded });
+
+            setBlog(blog);
+
+            const { data: { blogs } } = await axios.post(domain + "/blog/searchBlogs", {
+                tag: blog.tags[0],
+                limit: 6,
+                eliminate_blog: blog_id,
             });
-    };
 
+            setSimilarBlogs(blogs);
+
+            setTimeout(() => {
+                setLoading(false);
+            }, 500);
+        } catch (err) {
+            console.log(err.message);
+            setLoading(false);
+        } finally {
+            fetchBlogInProgress.current = false;
+        }
+    };
 
     useEffect(() => {
         resetStates();
@@ -87,6 +94,7 @@ const BlogPage = () => {
         setLoading(true);
         setIsLikedByUser(false);
         setCommentsWrapper(false);
+        setTotalParentCommentsLoaded(0);
     };
 
     return (
@@ -102,6 +110,8 @@ const BlogPage = () => {
                         setIsLikedByUser,
                         commentsWrapper,
                         setCommentsWrapper,
+                        totalParentCommentsLoaded,
+                        setTotalParentCommentsLoaded
                     }}
                 >
                     <CommentsContainer />
