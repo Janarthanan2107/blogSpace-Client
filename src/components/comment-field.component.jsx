@@ -5,7 +5,7 @@ import axios from "axios";
 import { domain } from "../constants/domain";
 import { BlogContext } from "../pages/blog.page";
 
-const CommentField = ({ action }) => {
+const CommentField = ({ action, index = undefined, replyingTo = undefined, setReplying }) => {
     let { blog, blog: { _id, author: { _id: blog_author }, comments, comments: { results: commentsArr }, activity, activity: { total_comments, total_parent_comments } }, setBlog, setTotalParentCommentsLoaded } = useContext(BlogContext)
     let { userAuth: { access_token, username, fullname, profile_img } } = useContext(UserContext)
     // state for text area
@@ -24,7 +24,7 @@ const CommentField = ({ action }) => {
         }
 
         axios.post(domain + "/blog/comment/add",
-            { _id, blog_author, comment },
+            { _id, blog_author, comment, replying_to: replyingTo },
             {
                 headers: {
                     'Authorization': `Bearer ${access_token}`
@@ -39,12 +39,24 @@ const CommentField = ({ action }) => {
 
                 let newCommentArr;
 
-                // defining the comment level 
-                data.childrenLevel = 0;
+                if (replyingTo) {
 
-                newCommentArr = [data, ...commentsArr];
+                    commentsArr[index].children.push(data._id)
+                    data.childrenLevel = commentsArr[index].childrenLevel + 1
+                    data.parentIndex = index;
+                    commentsArr[index].isReplyLoaded = true;
+                    commentsArr.splice(index + 1, 0, data);
+                    newCommentArr = commentsArr
+                    setReplying(false);
 
-                let parentCommentIncrementLoaded = 1;
+                } else {
+                    // defining the comment level 
+                    data.childrenLevel = 0;
+                    newCommentArr = [data, ...commentsArr];
+                }
+
+
+                let parentCommentIncrementLoaded = replyingTo ? 0 : 1;
 
                 // modifying the data struct of the blog getting from the api response
                 // adding the result key in blog object

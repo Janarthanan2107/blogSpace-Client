@@ -9,7 +9,7 @@ const MinimalBlogPost = ({ blog, index }) => {
         <Link to={`/blog/${id}`} className='flex gap-5 mb-4'>
             <h1 className='blog-index'>{index < 10 ? "0" + (index + 1) : index}</h1>
 
-            <div>
+            <div className=' min-h-[100px]'>
                 <div className="flex gap-2 items-center mb-8">
                     <img src={profile_img} alt="dp" className="w-6 h-6 rounded-full" />
                     <p className="line-clamp-1">{fullname} @{username}</p>
