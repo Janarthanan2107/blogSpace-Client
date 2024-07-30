@@ -126,8 +126,10 @@ const CommentCard = ({ index, leftVal, commentData }) => {
                 }
             }
         } else {
-            if ((index - parentIndex) < commentsArr[parentIndex].children.length) {
-                return button
+            if (parentIndex) {
+                if ((index - parentIndex) < commentsArr[parentIndex].children.length) {
+                    return button
+                }
             }
         }
     }

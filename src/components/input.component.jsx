@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const InputText = ({ name, id, type, value, placeholder, icon, onChange }) => {
+const InputText = ({ name, id, type, value, placeholder, icon, onChange, disable = false }) => {
     const [passwordVisible, setPasswordVisible] = useState(false);
 
     const passwordToggle = () => {
@@ -17,6 +17,7 @@ const InputText = ({ name, id, type, value, placeholder, icon, onChange }) => {
                 value={value}
                 onChange={onChange}
                 className="input-box"
+                disabled={disable}
             />
             <i className={`fi ${icon} input-icon`}></i>
             {type === "password" ? (
