@@ -15,7 +15,7 @@ const AboutUser = ({ className, bio, socialLinks, joinedAt }) => {
                         let link = socialLinks[key];
 
                         return link ? <Link to={link} key={i} target="_blank">
-                            <i className={"fi " + (key != "webiste" ? "fi-brands-" + key : "fi-rr-globe") + " text-2xl hover:text-black"}></i>
+                            <i className={"fi " + (key != "website" ? "fi-brands-" + key : "fi-rr-globe") + " text-2xl hover:text-black"}></i>
                         </Link> : ""
                     })
                 }

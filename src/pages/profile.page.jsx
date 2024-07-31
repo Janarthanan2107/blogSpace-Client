@@ -117,7 +117,7 @@ const ProfilePage = () => {
                         <p className="text-xl capitalize h-6">{profile.personal_info.fullname}</p>
                         <p>{profile.account_info.total_posts.toLocaleString()} Blogs - {profile.account_info.total_reads.toLocaleString()} Reads</p>
                         {profileId === username && (
-                            <Link to="/settings/editProfile" className="btn-light rounded-md">
+                            <Link to="/settings/edit-profile" className="btn-light rounded-md">
                                 Edit Profile
                             </Link>
                         )}

@@ -1,3 +1,3 @@
-const domain = "http://localhost:5000/api"
+const domain = "https://blogspace-server-ebda.onrender.com/api"
 
 export { domain }

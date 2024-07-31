@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const InputText = ({ name, id, type, value, placeholder, icon, onChange, disable = false }) => {
+const InputText = ({ name, id, type, value, placeholder, icon, onChange, disabled = false }) => {
     const [passwordVisible, setPasswordVisible] = useState(false);
 
     const passwordToggle = () => {
@@ -17,15 +17,15 @@ const InputText = ({ name, id, type, value, placeholder, icon, onChange, disable
                 value={value}
                 onChange={onChange}
                 className="input-box"
-                disabled={disable}
+                disabled={disabled}
             />
             <i className={`fi ${icon} input-icon`}></i>
-            {type === "password" ? (
+            {type === "password" && (
                 <i
                     className={`fi ${!passwordVisible ? "fi-rr-eye-crossed" : "fi-rr-eye"} input-icon left-[auto] right-4 cursor-pointer`}
                     onClick={passwordToggle}
                 ></i>
-            ) : ""}
+            )}
         </div>
     );
 };

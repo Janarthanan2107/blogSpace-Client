@@ -1,9 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Navigate, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { UserContext } from '../App';
-import axios from 'axios';
-import { domain } from '../constants/domain';
-import toast, { Toaster } from 'react-hot-toast';
 
 const SideNavbar = () => {
     const { userAuth: { access_token, googleAuth } } = useContext(UserContext);
@@ -56,7 +53,6 @@ const SideNavbar = () => {
         access_token === null ? <Navigate to="/" /> :
             <>
                 <section className='relative flex gap-10 py-0 m-0 max-md:flex-col'>
-                    <Toaster />
                     <div className="sticky top-[80px] z-30">
                         <div className='md:hidden bg-white py-1 border-b border-grey flex flex-nowrap overflow-x-auto'>
                             <button ref={sideBarIconTab} className='p-5 capitalize' onClick={toggleSidebar}>
@@ -114,18 +110,18 @@ const SideNavbar = () => {
                                 Edit Profile
                             </NavLink>
 
-                            {!googleAuth ?
-                                <NavLink
-                                    to="/settings/change-password"
-                                    className="sidebar-link"
-                                    ref={el => activeTabRefs.current[4] = el}
-                                    data-path="change-password"
-                                    onClick={(e) => handleChangeTab(e, 'change-password')}
-                                >
-                                    <i className='fi fi-rr-lock'></i>
-                                    Change Password
-                                </NavLink>
-                                : ""}
+                            {/* {!googleAuth ? */}
+                            <NavLink
+                                to="/settings/change-password"
+                                className="sidebar-link"
+                                ref={el => activeTabRefs.current[4] = el}
+                                data-path="change-password"
+                                onClick={(e) => handleChangeTab(e, 'change-password')}
+                            >
+                                <i className='fi fi-rr-lock'></i>
+                                Change Password
+                            </NavLink>
+                                 {/* : ""} */}
                         </div>
                     </div>
                     <div className='max-md:-mt-5 mt-5 w-full'>
