@@ -116,6 +116,9 @@ const ProfilePage = () => {
                         <h1 className="text-2xl font-medium">@{profile.personal_info.username}</h1>
                         <p className="text-xl capitalize h-6">{profile.personal_info.fullname}</p>
                         <p>{profile.account_info.total_posts.toLocaleString()} Blogs - {profile.account_info.total_reads.toLocaleString()} Reads</p>
+                        <p className="p-2 px-4 border border-grey rounded-lg text-white bg-red/90">
+                            {profile.isDeleted ? "This account has been deactivated. If you believe this is a mistake, please contact support." : ""}
+                        </p>
                         {profileId === username && (
                             <Link to="/settings/edit-profile" className="btn-light rounded-md">
                                 Edit Profile

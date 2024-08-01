@@ -52,7 +52,7 @@ const Home = () => {
                 });
         } catch (error) {
             console.error("Error fetching latest blogs:", error.message);
-        } 
+        }
     };
 
     // trending blogs
@@ -130,6 +130,10 @@ const Home = () => {
                                 ) : (
                                     blogs.results.length ?
                                         (blogs.results.map((blog, i) => {
+                                            if (!blog.author?.personal_info) {
+                                                console.log("Personal data is undefined or null");
+                                                blog.author = { personal_info: { profile_img: "https://w7.pngwing.com/pngs/686/219/png-transparent-youtube-user-computer-icons-information-youtube-hand-silhouette-avatar-thumbnail.png", fullname: "Unknown User", username: "unknown" } }
+                                            }
                                             return (
                                                 <AnimationWrapper key={i} transition={{ duration: 1, delay: i }}>
                                                     <BlogPostCard content={blog} author={blog.author.personal_info} />

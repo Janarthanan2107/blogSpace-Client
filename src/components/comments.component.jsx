@@ -71,17 +71,19 @@ const CommentsContainer = () => {
             <CommentField action="Comment" />
 
             {
-                commentArr && commentArr.length ?
+                commentArr && commentArr.length ? (
                     commentArr.map((comment, i) => {
                         return (
                             <AnimationWrapper key={i}>
                                 <CommentCard index={i} leftVal={comment.childrenLevel * 4} commentData={comment} />
                             </AnimationWrapper>
-                        )
+                        );
                     })
-                    :
-                    <NoDataMessage message={"No Comments"} />
+                ) : (
+                    <NoDataMessage message="No Comments" />
+                )
             }
+
 
             {
                 total_parent_comments > totalParentCommentsLoaded ?

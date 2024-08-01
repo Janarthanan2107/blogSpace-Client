@@ -16,6 +16,8 @@ import { firebase } from "../common/firebase";
 const BlogEditor = () => {
     const { userAuth: { access_token } } = useContext(UserContext)
     const { blog, blog: { title, banner, content }, setBlog, setEditorState, blog_id } = useContext(EditorContext);
+    // console.log(title);
+
     let navigate = useNavigate()
 
     // states

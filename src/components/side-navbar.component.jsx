@@ -64,7 +64,7 @@ const SideNavbar = () => {
                             <hr ref={activeTabLine} className='absolute bottom-0 duration-500' />
                         </div>
 
-                        <div className={`min-w-[200px] h-cover md:sticky top-24 overflow-y-auto p-6 md:pr-0 md:border-grey md:border-r absolute max-md:top-[64px] bg-white max-md:w-[calc(100%+80px)] max-md:px-16 max-md:-ml-7 duration-500 ${!showSideNav ? "max-md:opacity-0 max-md:pointer-events-none" : "opacity-100 pointer-events-auto"}`}>
+                        <div className={`min-w-[200px] h-cover md:mb-8 md:sticky top-24 overflow-y-auto p-6 md:pr-0 md:border-grey md:border-r absolute max-md:top-[64px] bg-white max-md:w-[calc(100%+80px)] max-md:px-16 max-md:-ml-7 duration-500 ${!showSideNav ? "max-md:opacity-0 max-md:pointer-events-none" : "opacity-100 pointer-events-auto"}`}>
                             <h1 className='text-xl text-dark-grey mb-2'>Dashboard</h1>
                             <hr className='border-grey -ml-6 mb-5 mr-6' />
                             <NavLink
@@ -110,7 +110,6 @@ const SideNavbar = () => {
                                 Edit Profile
                             </NavLink>
 
-                            {/* {!googleAuth ? */}
                             <NavLink
                                 to="/settings/change-password"
                                 className="sidebar-link"
@@ -121,7 +120,19 @@ const SideNavbar = () => {
                                 <i className='fi fi-rr-lock'></i>
                                 Change Password
                             </NavLink>
-                                 {/* : ""} */}
+
+                            <NavLink
+                                to="/settings/danger-zone"
+                                className="sidebar-link"
+                                ref={el => activeTabRefs.current[4] = el}
+                                data-path="danger-zone"
+                                onClick={(e) => handleChangeTab(e, 'danger-zone')}
+                            >
+                                <i className="fi fi-rs-triangle-warning"></i>
+                                Danger Zone
+                            </NavLink>
+
+
                         </div>
                     </div>
                     <div className='max-md:-mt-5 mt-5 w-full'>

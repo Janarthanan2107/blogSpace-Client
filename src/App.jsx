@@ -16,6 +16,7 @@ import BlogPage from "./pages/blog.page";
 import SideNavbar from "./components/side-navbar.component";
 import ChangePassword from "./pages/change-password.page";
 import EditProfile from "./pages/edit-profile.page";
+import DangerZone from "./pages/danger-zone.page";
 
 export const UserContext = createContext({});
 
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
                     {
                         path: "change-password",
                         element: <ChangePassword />,
+                    },
+                    {
+                        path: "danger-zone",
+                        element: <DangerZone />,
                     },
                 ]
             },
