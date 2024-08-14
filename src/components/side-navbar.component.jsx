@@ -3,7 +3,7 @@ import { Navigate, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { UserContext } from '../App';
 
 const SideNavbar = () => {
-    const { userAuth: { access_token, googleAuth } } = useContext(UserContext);
+    const { userAuth: { access_token, new_notification_available } } = useContext(UserContext);
     const location = useLocation();
     const [pageState, setPageState] = useState("");
     const [showSideNav, setShowSideNav] = useState(false);
@@ -84,7 +84,12 @@ const SideNavbar = () => {
                                 data-path="notification"
                                 onClick={(e) => handleChangeTab(e, 'notification')}
                             >
-                                <i className='fi fi-rr-bell'></i>
+                                <div className=' relative'>
+                                    <i className='fi fi-rr-bell'></i>
+                                    {new_notification_available &&
+                                        <span className="bg-red w-2 h-2 rounded-full absolute z-10 top-0 right-0"></span>
+                                    }
+                                </div>
                                 Notification
                             </NavLink>
                             <NavLink
