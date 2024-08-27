@@ -17,6 +17,7 @@ import SideNavbar from "./components/side-navbar.component";
 import ChangePassword from "./pages/change-password.page";
 import EditProfile from "./pages/edit-profile.page";
 import DangerZone from "./pages/danger-zone.page";
+import Notifications from "./pages/notifications.page";
 
 export const UserContext = createContext({});
 
@@ -50,6 +51,21 @@ const router = createBrowserRouter([
             {
                 path: "blog/:blog_id",
                 element: <BlogPage />
+            },
+            // dashboard
+            {
+                path: "dashboard",
+                element: <SideNavbar />,
+                children: [
+                    {
+                        path: "notifications",
+                        element: <Notifications />,
+                    },
+                    {
+                        path: "blogs",
+                        element: "blogs",
+                    },
+                ]
             },
             // settings route
             {

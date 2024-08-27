@@ -78,7 +78,7 @@ const SideNavbar = () => {
                                 Blogs
                             </NavLink>
                             <NavLink
-                                to="/dashboard/notification"
+                                to="/dashboard/notifications"
                                 className="sidebar-link"
                                 ref={el => activeTabRefs.current[1] = el}
                                 data-path="notification"
@@ -90,7 +90,7 @@ const SideNavbar = () => {
                                         <span className="bg-red w-2 h-2 rounded-full absolute z-10 top-0 right-0"></span>
                                     }
                                 </div>
-                                Notification
+                                Notifications
                             </NavLink>
                             <NavLink
                                 to="/editor"
