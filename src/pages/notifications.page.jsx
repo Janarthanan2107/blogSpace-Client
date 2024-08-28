@@ -10,7 +10,7 @@ import NotificationCard from '../components/notification-card.component';
 import LoadMoreDataBtn from '../components/load-more.component';
 
 const Notifications = () => {
-    const { userAuth: { access_token } } = useContext(UserContext);
+    const { userAuth, userAuth: { access_token, new_notification_available }, setUserAuth } = useContext(UserContext);
     const [filter, setFilter] = useState("all");
     const [notifications, setNotifications] = useState(null);
 
@@ -23,6 +23,11 @@ const Notifications = () => {
             }
         })
             .then(async ({ data: { notification: data } }) => {
+
+                if (new_notification_available) {
+                    setUserAuth({ ...userAuth, new_notification_available: false })
+                }
+
                 let formattedData = await filterPaginationData({
                     state: notifications,
                     data,

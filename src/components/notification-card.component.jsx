@@ -12,7 +12,7 @@ const NotificationCard = ({ data, index, notificationState }) => {
 
     let [isReply, setIsReply] = useState(false)
 
-    let { type, reply, createdAt, comment, replied_on_comment, user, user: { personal_info: { fullname, username, profile_img } }, blog: { _id, title, blog_id }, _id: notification_id } = data;
+    let { seen, type, reply, createdAt, comment, replied_on_comment, user, user: { personal_info: { fullname, username, profile_img } }, blog: { _id, title, blog_id }, _id: notification_id } = data;
 
     let { userAuth: { username: author_username, profile_img: author_profile_img, access_token } } = useContext(UserContext)
 
@@ -46,7 +46,7 @@ const NotificationCard = ({ data, index, notificationState }) => {
     }
 
     return (
-        <div className='p-6 border-b border-grey border-l-black'>
+        <div className={'p-6 border-b border-grey border-l-black ' + (!seen ? 'border-l-2' : '')}>
             <div className='flex gap-5 mb-3'>
                 <Link to={`/user/${username}`}>
                     <img src={profile_img} alt="dp" className='w-14 h-14 flex-none rounded-full' />
