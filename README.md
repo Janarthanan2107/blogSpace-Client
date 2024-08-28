@@ -1,3 +1,6 @@
+Here's a sample `README.md` file for your client-side BlogSpace application:
+
+```markdown
 # BlogSpace - Client
 
 Welcome to **BlogSpace**, a dynamic blog application where users can create, edit, and engage with content. The client-side of BlogSpace is built using **React.js** and styled with **Tailwind CSS** for a sleek and responsive UI. This project also uses **Axios** for making API requests to the backend, which is powered by Node.js and MongoDB.
@@ -41,7 +44,7 @@ To run the client-side application locally, follow these steps:
    ```
 4. Start the development server:
    ```bash
-   npm run dev
+   npm start
    ```
    The application should now be running on `http://localhost:3000`.
 
@@ -49,23 +52,24 @@ To run the client-side application locally, follow these steps:
 
 ```plaintext
 blogSpace-Client/
+├── public/
 ├── src/
-│   ├── common/
+│   ├── assets/
 │   ├── components/
-│   ├── constants/
-│   ├── imgs/
 │   ├── pages/
+│   ├── services/
+│   ├── utils/
 │   └── App.js
 ├── tailwind.config.js
 ├── package.json
 └── README.md
 ```
 
-- **common/**: Contains utility functions and helpers.
 - **components/**: Contains reusable UI components like buttons, headers, and forms.
-- **constants/**: Contains Axios configuration and API requests.
-- **imgs/**: Stores images and other static resources.
 - **pages/**: Contains the main pages such as the homepage, blog editor, and profile.
+- **services/**: Contains Axios configuration and API requests.
+- **utils/**: Contains utility functions and helpers.
+- **assets/**: Stores images and other static resources.
 
 ## Deployment
 
@@ -78,3 +82,6 @@ If you'd like to contribute to this project, feel free to submit a pull request 
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+```
+
+You can modify the details or add more sections based on your specific requirements!
