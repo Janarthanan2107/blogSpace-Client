@@ -25,7 +25,7 @@ Check out the live deployment here: [BlogSpace on Netlify](https://magical-blog-
 - **Database**: MongoDB
 - **State Management**: React Hooks, Context API
 - **API Client**: Axios
-
+```
 ## Installation
 
 To run the client-side application locally, follow these steps:
