@@ -4,6 +4,7 @@ Here's a sample `README.md` file for your client-side BlogSpace application:
 # BlogSpace - Client
 
 Welcome to **BlogSpace**, a dynamic blog application where users can create, edit, and engage with content. The client-side of BlogSpace is built using **React.js** and styled with **Tailwind CSS** for a sleek and responsive UI. This project also uses **Axios** for making API requests to the backend, which is powered by Node.js and MongoDB.
+```
 
 ## Live Demo
 
