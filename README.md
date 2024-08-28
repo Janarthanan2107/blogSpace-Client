@@ -49,24 +49,23 @@ To run the client-side application locally, follow these steps:
 
 ```plaintext
 blogSpace-Client/
-├── public/
 ├── src/
-│   ├── assets/
+│   ├── common/
 │   ├── components/
+│   ├── constants/
+│   ├── imgs/
 │   ├── pages/
-│   ├── services/
-│   ├── utils/
 │   └── App.js
 ├── tailwind.config.js
 ├── package.json
 └── README.md
 ```
 
+- **common/**: Contains utility functions and helpers.
 - **components/**: Contains reusable UI components like buttons, headers, and forms.
+- **constants/**: Contains Axios configuration and API requests.
+- **imgs/**: Stores images and other static resources.
 - **pages/**: Contains the main pages such as the homepage, blog editor, and profile.
-- **services/**: Contains Axios configuration and API requests.
-- **utils/**: Contains utility functions and helpers.
-- **assets/**: Stores images and other static resources.
 
 ## Deployment
 
