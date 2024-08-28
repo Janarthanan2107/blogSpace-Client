@@ -43,7 +43,7 @@ const Navbar = () => {
                     'Authorization': `Bearer ${access_token}`
                 }
             }).then(({ data }) => {
-                console.log(data);
+                // console.log(data);
                 setUserAuth({ ...userAuth, ...data })
             }).catch((err) => {
                 console.log(err);
