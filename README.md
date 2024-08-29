@@ -78,7 +78,3 @@ The client-side application is deployed on Netlify at: [https://magical-blog-spa
 ## Contributing
 
 If you'd like to contribute to this project, feel free to submit a pull request or open an issue for discussion.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
