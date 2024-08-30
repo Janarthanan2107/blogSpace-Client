@@ -113,7 +113,7 @@ export const ManageDraftBlogCard = ({ blog }) => {
                 <div className='flex flex-col justify-between py-2 w-full min-w-[300px]'>
                     <div>
                         <Link to={`/blog/${blog_id}`} className='text-[17px] font-medium hover:underline'>{title}</Link>
-                        <p className='text-dark-grey line-clamp-2 text-[13px]'>{des.length ? des : "No Description"}</p>
+                        {/* <p className='text-dark-grey line-clamp-2 text-[13px]'>{des.length ? des : "No Description"}</p> */}
                         <p className='text-dark-grey/50 line-clamp-1 text-[12px] mt-2'>Published on {getDay(publishedAt)}</p>
                     </div>
                     <div className='flex gap-6 mt-3'>

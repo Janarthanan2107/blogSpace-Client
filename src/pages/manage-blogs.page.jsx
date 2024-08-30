@@ -10,14 +10,18 @@ import { ManageDraftBlogCard, ManagePublishedBlogCard } from '../components/mana
 import NoDataMessage from '../components/nodata.component'
 import AnimationWrapper from '../common/page-animation'
 import LoadMoreDataBtn from '../components/load-more.component'
+import { useSearchParams } from 'react-router-dom'
 
 const ManageBlogs = () => {
     const { userAuth: { access_token } } = useContext(UserContext);
-    
+
     const [blogs, setBlogs] = useState(null)
     const [drafts, setDrafts] = useState(null)
     const [query, setQuery] = useState("")
-    
+
+    let activeTab = useSearchParams()[0].get("tab");
+    console.log(activeTab);
+
     const getBlogs = ({ page, draft, deletedDocCount = 0 }) => {
         axios.post(domain + "/blog/userWrittenBlogs",
             { page, draft, query, deletedDocCount },
@@ -85,7 +89,7 @@ const ManageBlogs = () => {
                 <i className='fi fi-rr-search absolute right-[10%] md:pointer-events-none md:left-5 top-1/2 -translate-y-1/2 text-xl text-dark-grey '></i>
             </div>
 
-            <InPageNavigation routes={["Published Blogs", "Drafts"]}>
+            <InPageNavigation routes={["Published Blogs", "Drafts"]} defaultActiveIndex={activeTab !== 'draft' ? 0 : 1}>
                 {
                     blogs == null ? <Loader /> : blogs.results.length ?
                         <>

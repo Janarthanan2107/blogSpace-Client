@@ -94,14 +94,7 @@ const PublishForm = () => {
             id: blog_id
         }
 
-        console.log(JSON.stringify(blogObject, null, 2))
-
-        // console.log(domain + "/blog/create", blogObject, {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': `Bearer ${access_token}`
-        //     }
-        // })
+        // console.log(JSON.stringify(blogObject, null, 2))
 
         axios.post(domain + "/blog/create", blogObject, {
             headers: {
@@ -114,7 +107,7 @@ const PublishForm = () => {
             toast.success("Published Successfully👍");
 
             setTimeout(() => {
-                navigate("/")
+                navigate("/dashboard/blogs")
             }, 500);
         }).catch(({ response }) => {
             e.target.classList.remove('disable');
