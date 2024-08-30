@@ -18,6 +18,7 @@ import ChangePassword from "./pages/change-password.page";
 import EditProfile from "./pages/edit-profile.page";
 import DangerZone from "./pages/danger-zone.page";
 import Notifications from "./pages/notifications.page";
+import ManageBlogs from "./pages/manage-blogs.page";
 
 export const UserContext = createContext({});
 
@@ -63,7 +64,7 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "blogs",
-                        element: "blogs",
+                        element: <ManageBlogs />,
                     },
                 ]
             },
